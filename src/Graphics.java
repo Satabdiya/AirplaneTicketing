@@ -45,7 +45,11 @@ public class Graphics {
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton button1 = new JButton("Exit");
         JButton button2 = new JButton("Book a Flight");
-        button1.addActionListener(e -> frame.dispose());
+        button1.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "Thank you for using the Purdue University\n" +
+                    "Airline Management System!", "Thank You!", JOptionPane.PLAIN_MESSAGE);
+            frame.dispose();
+        });
         button2.addActionListener(e -> bookAFlight());
         buttons.add(button1);
         buttons.add(button2);
@@ -74,7 +78,11 @@ public class Graphics {
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton button1 = new JButton("Exit");
         JButton button2 = new JButton("Yes, I want to book a flight.");
-        button1.addActionListener(e -> frame.dispose());
+        button1.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "Thank you for using the Purdue University\n" +
+                    "Airline Management System!", "Thank You!", JOptionPane.PLAIN_MESSAGE);
+            frame.dispose();
+        });
         button2.addActionListener(e -> dropDownInfo());
         buttons.add(button1);
         buttons.add(button2);
@@ -157,7 +165,11 @@ public class Graphics {
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton button1 = new JButton("Exit");
         JButton button2 = new JButton("Choose this flight");
-        button1.addActionListener(e -> frame.dispose());
+        button1.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "Thank you for using the Purdue University\n" +
+                    "Airline Management System!", "Thank You!", JOptionPane.PLAIN_MESSAGE);
+            frame.dispose();
+        });
         button2.addActionListener(e -> confirmFlight((String) options.getSelectedItem()));
         buttons.add(button1);
         buttons.add(button2);
@@ -215,7 +227,11 @@ public class Graphics {
         JButton button1 = new JButton("Exit");
         JButton button2 = new JButton("No, I want a different flight.");
         JButton button3 = new JButton("Yes, I want this flight.");
-        button1.addActionListener(e -> frame.dispose());
+        button1.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "Thank you for using the Purdue University\n" +
+                    "Airline Management System!", "Thank You!", JOptionPane.PLAIN_MESSAGE);
+            frame.dispose();
+        });
         button2.addActionListener(e -> dropDownInfo());
         button3.addActionListener(e -> passengerInfo(flightName));
         buttons.add(button1);
@@ -259,7 +275,7 @@ public class Graphics {
         frame.add(panel);
     }
 
-    public static void passengerInfo(String flightName){
+    public static void passengerInfo(String flightName) {
         panel.removeAll();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         JPanel inner = new JPanel();
@@ -304,8 +320,26 @@ public class Graphics {
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton button1 = new JButton("Exit");
         JButton button2 = new JButton("Next");
-        button1.addActionListener(e -> frame.dispose());
-        button2.addActionListener(e -> frame.setSize(300, 300));
+        button1.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "Thank you for using the Purdue University\n" +
+                    "Airline Management System!", "Thank You!", JOptionPane.PLAIN_MESSAGE);
+            frame.dispose();
+        });
+        button2.addActionListener(e -> {
+            String first = firstName.getText();
+            String last = lastName.getText();
+            String ageValue = age.getText();
+            if (checkValidity(first, last, ageValue)) {
+                int choice = JOptionPane.showConfirmDialog(null, "Are all the details you" +
+                                " entered correct?\nThe passenger's name is " + first + " " + last + " and their age is "
+                                + ageValue + ".\nIf all the information shown is correct, select the Yes\nbutton below, " +
+                                "otherwise, select the No button.", "Confirm Passenger Information",
+                        JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION) {
+                    finalConfirmation(flightName);
+                }
+            }
+        });
         buttons.add(button1);
         buttons.add(button2);
         panel.requestFocus();
@@ -332,6 +366,57 @@ public class Graphics {
         panel.updateUI();
         panel.setVisible(true);
         frame.add(panel);
+    }
+
+    public static boolean checkValidity(String firstName, String lastName, String age) {
+        boolean valid = true;
+        if (firstName.equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter a FIRST NAME.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            valid = false;
+        } else {
+            for (int i = 0; i < firstName.length(); i++) {
+                if (!Character.isLetter(firstName.charAt(i)) && firstName.charAt(i) != '-') {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid FIRST NAME " +
+                            "that\nonly consists of letters or a dash(-).", "Error", JOptionPane.ERROR_MESSAGE);
+                    valid = false;
+                    break;
+                }
+            }
+        }
+        if (lastName.equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter a LAST NAME.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            valid = false;
+        } else {
+            for (int i = 0; i < lastName.length(); i++) {
+                if (!Character.isLetter(lastName.charAt(i)) && lastName.charAt(i) != '-') {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid LAST NAME " +
+                            "that\nonly consists of letters or a dash(-).", "Error", JOptionPane.ERROR_MESSAGE);
+                    valid = false;
+                    break;
+                }
+            }
+        }
+        if (age.equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter an AGE.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            valid = false;
+        } else {
+            try {
+                int ageInt = Integer.parseInt(age);
+                if (ageInt < 0) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid AGE.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    valid = false;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid AGE.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                valid = false;
+            }
+        }
+        return valid;
     }
 
     public static void passengerInfoServer(String airline) {
@@ -372,6 +457,7 @@ public class Graphics {
             passengersDisplay.append(passenger + "\n");
         }
         passengersDisplay.setEditable(false);
+        passengersDisplay.setBackground(Color.lightGray);
         passengersDisplay.setRows(5);
         JScrollPane jsp = new JScrollPane(passengersDisplay,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -386,5 +472,69 @@ public class Graphics {
         popUp.add(encapsulate);
         popUp.setAlwaysOnTop(true);
         popUp.setVisible(true);
+    }
+
+    public static void finalConfirmation(String airline) {
+        panel.removeAll();
+        JPanel begin = new JPanel();
+        JLabel intro = new JLabel();
+        intro.setText("<html><center>Flight data displaying for " + airline + " Airlines<br>Enjoy your flight!<br>" +
+                "Flight is now boarding at Gate A16</center></html>");
+        intro.setFont(new Font(intro.getFont().getName(), Font.BOLD, 20));
+        intro.setAlignmentX(Component.CENTER_ALIGNMENT);
+        begin.add(intro);
+        //TODO ask for server to respond with capacity, list of passengers and airline information
+        /*
+            int capacity = getCapacity();
+            ArrayList<String> passengers = flightPassengers();
+         */
+        int capacity = 100;
+        ArrayList<String> passengers = new ArrayList<>(0);
+        passengers.add("A. NARAIN, 20");
+        passengers.add("K. ABHYANKAR, 19");
+        passengers.add("N. CLAYMAN, 19");
+        passengers.add("A. NARAIN, 20");
+        passengers.add("K. ABHYANKAR, 19");
+        passengers.add("N. CLAYMAN, 19");
+        passengers.add("A. NARAIN, 20");
+        passengers.add("K. ABHYANKAR, 19");
+        passengers.add("N. CLAYMAN, 19");
+        JTextArea passengersDisplay = new JTextArea( "                                                    " +
+                "                                              " + passengers.size() + ":" + capacity + "\n");
+        for (String passenger : passengers) {
+            passengersDisplay.append( "     " + passenger + "\n");
+        }
+        passengersDisplay.setEditable(false);
+        passengersDisplay.setBackground(Color.lightGray);
+        passengersDisplay.setRows(10);
+        JScrollPane jsp = new JScrollPane(passengersDisplay,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jsp.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //TODO get passenger information from server along with flight info
+        BoardingPass bp = new BoardingPass(new Passenger("lara", "kashi", 57),
+                new Gate(new Alaska("18000")));
+        JPanel pass = new JPanel();
+        JLabel boardingPass = new JLabel(bp.toString());
+        boardingPass.setAlignmentX(Component.CENTER_ALIGNMENT);
+        pass.add(boardingPass);
+        JPanel buttons = new JPanel();
+        buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton button1 = new JButton("Exit");
+        JButton button2 = new JButton("Refresh Flight Status");
+        button1.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "Thank you for using the Purdue University\n" +
+                    "Airline Management System!", "Thank You!", JOptionPane.PLAIN_MESSAGE);
+            frame.dispose();
+        });
+        button2.addActionListener(e -> finalConfirmation(airline));
+        buttons.add(button1);
+        buttons.add(button2);
+        panel.add(begin);
+        panel.add(jsp);
+        panel.add(pass);
+        panel.add(buttons);
+        panel.updateUI();
+        panel.setVisible(true);
+        frame.add(panel);
     }
 }
