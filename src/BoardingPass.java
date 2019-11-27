@@ -14,13 +14,15 @@ public class BoardingPass implements Serializable {
      * This method returns a formatted string that displays the boarding pass.
      */
     public String toString() {
-        return String.format("-------------------------------------------------------------------------------\n" +
-                        "BOARDING PASS FOR FLIGHT %s WITH %s\n" +
-                        "PASSENGER FIRST NAME : %s\n" +
-                        "PASSENGER LAST NAME : %s\n" +
-                        "PASSENGER AGE : %d\n" +
-                        "You can now begin boarding at gate %s" +
-                        "-------------------------------------------------------------------------------"
+        return String.format("<html>-------------------------------------------------------------------------" +
+                        "-------------------------------------------------------------------<br>" +
+                        "BOARDING PASS FOR FLIGHT %s WITH %s<br>" +
+                        "PASSENGER FIRST NAME : %s<br>" +
+                        "PASSENGER LAST NAME : %s<br>" +
+                        "PASSENGER AGE : %d<br>" +
+                        "You can now begin boarding at gate %s<br>" +
+                        "------------------------------------------------------------------------------------------" +
+                        "--------------------------------------------------</html>"
                 , gate.getAirline().getFlightNumber(), gate.getAirline().getAirlineName(), passenger.getFirstName(),
                 passenger.getLastName(), passenger.getAge(), gate.getGate());
     }
