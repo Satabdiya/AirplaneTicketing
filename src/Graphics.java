@@ -179,7 +179,7 @@ public class Graphics {
 
             @Override
             public void keyPressed(KeyEvent keyEvent) {
-                if (keyEvent.getKeyCode() == KeyEvent.VK_SLASH) {
+                if (keyEvent.getKeyCode() == KeyEvent.VK_BACK_SLASH) {
                     passengerInfoServer((String) options.getSelectedItem());
                 }
             }
@@ -243,7 +243,7 @@ public class Graphics {
 
             @Override
             public void keyPressed(KeyEvent keyEvent) {
-                if (keyEvent.getKeyCode() == KeyEvent.VK_SLASH) {
+                if (keyEvent.getKeyCode() == KeyEvent.VK_BACK_SLASH) {
                     passengerInfoServer(flightName);
                 }
             }
@@ -257,6 +257,7 @@ public class Graphics {
         panel.add(new JLabel("         "));
         panel.add(new JLabel("         "));
         panel.add(inner);
+        panel.add(new JLabel("         "));
         panel.add(new JLabel("         "));
         panel.add(new JLabel("         "));
         panel.add(new JLabel("         "));
@@ -290,6 +291,31 @@ public class Graphics {
         firstName.setRows(5);
         firstName.setMaximumSize(new Dimension(frame.getWidth(), 150));
         firstName.setEditable(true);
+        firstName.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent keyEvent) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                String text = firstName.getText();
+                if (text.contains("\\")) {
+                    for (int i = 0; i < text.length(); i++) {
+                        if (text.charAt(i) == '\\') {
+                            text = text.substring(0, i) + text.substring(i+1);
+                        }
+                    }
+                    firstName.setText(text);
+                }
+                if (keyEvent.getKeyCode() == KeyEvent.VK_BACK_SLASH) {
+                    passengerInfoServer(flightName);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent) {
+            }
+        });
         firstName.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel question2 = new JLabel("What is your last name?", SwingConstants.LEFT);
         question2.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -297,6 +323,31 @@ public class Graphics {
         lastName.setRows(5);
         lastName.setMaximumSize(new Dimension(frame.getWidth(), 150));
         lastName.setEditable(true);
+        lastName.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent keyEvent) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                String text = lastName.getText();
+                if (text.contains("\\")) {
+                    for (int i = 0; i < text.length(); i++) {
+                        if (text.charAt(i) == '\\') {
+                            text = text.substring(0, i) + text.substring(i+1);
+                        }
+                    }
+                    lastName.setText(text);
+                }
+                if (keyEvent.getKeyCode() == KeyEvent.VK_BACK_SLASH) {
+                    passengerInfoServer(flightName);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent) {
+            }
+        });
         lastName.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel question3 = new JLabel("What is your age?", SwingConstants.LEFT);
         question3.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -304,6 +355,31 @@ public class Graphics {
         age.setRows(5);
         age.setMaximumSize(new Dimension(frame.getWidth(), 150));
         age.setEditable(true);
+        age.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent keyEvent) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                String text = age.getText();
+                if (text.contains("\\")) {
+                    for (int i = 0; i < text.length(); i++) {
+                        if (text.charAt(i) == '\\') {
+                            text = text.substring(0, i) + text.substring(i+1);
+                        }
+                    }
+                    age.setText(text);
+                }
+                if (keyEvent.getKeyCode() == KeyEvent.VK_BACK_SLASH) {
+                    passengerInfoServer(flightName);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent) {
+            }
+        });
         age.setAlignmentX(Component.LEFT_ALIGNMENT);
         questions.add(question1);
         questions.add(firstName);
@@ -348,13 +424,13 @@ public class Graphics {
 
             @Override
             public void keyPressed(KeyEvent keyEvent) {
-                if (keyEvent.getKeyCode() == KeyEvent.VK_SLASH) {
-                    passengerInfoServer(flightName);
-                }
             }
 
             @Override
             public void keyReleased(KeyEvent keyEvent) {
+                if (keyEvent.getKeyCode() == KeyEvent.VK_BACK_SLASH) {
+                    passengerInfoServer(flightName);
+                }
             }
         });
         panel.add(new JLabel("         "));
@@ -497,10 +573,10 @@ public class Graphics {
         passengers.add("A. NARAIN, 20");
         passengers.add("K. ABHYANKAR, 19");
         passengers.add("N. CLAYMAN, 19");
-        JTextArea passengersDisplay = new JTextArea( "                                                    " +
+        JTextArea passengersDisplay = new JTextArea("                                                    " +
                 "                                              " + passengers.size() + ":" + capacity + "\n");
         for (String passenger : passengers) {
-            passengersDisplay.append( "     " + passenger + "\n");
+            passengersDisplay.append("     " + passenger + "\n");
         }
         passengersDisplay.setEditable(false);
         passengersDisplay.setBackground(Color.lightGray);
