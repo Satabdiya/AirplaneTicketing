@@ -12,6 +12,10 @@ public class Alaska extends Airline {
         super("Alaska Airlines", flightNumber, 100);
     }
 
+    public Alaska(String flightNumber, String gate) {
+        super("Alaska Airlines", flightNumber, 100, gate);
+    }
+
     public String getInfo() {
         return "Alaska Airlines is proud to serve the strong and knowledgeable Boilermakers from Purdue University.\n" +
                 "We primarily fly westward, and often have stops in Alaska and California.\n" +

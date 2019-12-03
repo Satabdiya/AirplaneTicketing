@@ -11,6 +11,10 @@ public class Southwest extends Airline {
         super("Southwest Airlines", flightNumber, 100);
     }
 
+    public Southwest(String flightNumber, String gate) {
+        super("Southwest Airlines", flightNumber, 100, gate);
+    }
+
     public String getInfo() {
         return "Southwest Airlines is proud to offer flights to Purdue university.\n" +
                 "We are happy to offer free in flight wifi, as well as our amazing snacks.\n" +

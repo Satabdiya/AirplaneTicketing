@@ -12,6 +12,10 @@ public class Delta extends Airline {
         super("Delta Airlines", flightNumber, 200);
     }
 
+    public Delta(String flightNumber, String gate) {
+        super("Delta Airlines", flightNumber, 100, gate);
+    }
+
     public String getInfo() {
         return "Delta Airlines is proud to be one of the five premier Airlines at Purdue University.\n" +
                 "We are extremely proud to offer exceptional services, with free limited WiFi for all customers.\n" +

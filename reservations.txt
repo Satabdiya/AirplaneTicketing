@@ -1,10 +1,6 @@
 ALASKA
-4/100
+0/100
 Alaska passenger list
-H. BABOK, 23
-H. BO, 35
-M. ROY, 35
-S. ROY, 18
 
 DELTA
 0/200

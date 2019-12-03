@@ -794,14 +794,19 @@ public final class ReservationClient {
  */
 class ResponseListener implements Runnable {
     private Socket socket;
+    BufferedReader socketReader;
 
     public ResponseListener(Socket socket) {
         this.socket = socket;
+        try {
+            socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void run() {
         try {
-            BufferedReader socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String command = socketReader.readLine();
             String[] a = command.split(" ");
             String type = a[0];
@@ -828,12 +833,21 @@ class ResponseListener implements Runnable {
                     break;
                 }
                 case "FLIGHT":
-                    ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-                    Airline airline = (Airline) ois.readObject();
-                    ReservationClient.setSelectedAirline(airline);
+                    String line = socketReader.readLine();
+                    String[] info = line.split(" ");
+                    String flightName = info[0];
+                    String flightNumber = info[1];
+                    String gate = info[2];
+                    if (flightName.equals("Alaska")) {
+                        ReservationClient.setSelectedAirline(new Alaska(flightNumber, gate));
+                    } else if (flightName.equals("Delta")) {
+                        ReservationClient.setSelectedAirline(new Delta(flightNumber, gate));
+                    } else if (flightName.equals("Southwest")) {
+                        ReservationClient.setSelectedAirline(new Southwest(flightNumber, gate));
+                    }
                     break;
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

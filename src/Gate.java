@@ -20,6 +20,12 @@ public class Gate implements Serializable {
         this.airline = airline;
     }
 
+    public Gate(Airline airline, String gate) {
+        this.terminal = Character.toString(gate.charAt(0));
+        this.gateNumber = Integer.parseInt(gate.substring(1));
+        this.airline = airline;
+    }
+
     public String getGate() {
         return terminal + gateNumber;
     }

@@ -22,6 +22,13 @@ public abstract class Airline implements Serializable {
         gate = new Gate(this);
     }
 
+    public Airline(String airlineName, String flightNumber, int capacity, String gate) {
+        this.airlineName = airlineName;
+        this.flightNumber = flightNumber;
+        this.capacity = capacity;
+        this.gate = new Gate(this, gate);
+    }
+
     public String getAirlineName() {
         return airlineName;
     }
@@ -44,4 +51,8 @@ public abstract class Airline implements Serializable {
      * @return a string with the airline description
      */
     public abstract String getInfo();
+
+    public String returnThis() {
+        return String.format("%s %s %d %s", airlineName, flightNumber, capacity, gate.getGate());
+    }
 }

@@ -118,6 +118,30 @@ class ClientHandler implements Runnable {
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
         this.file = new File("reservations.txt");
+        PrintWriter pw = null;
+        if (!file.exists()) {
+            try {
+                if (file.createNewFile()) {
+                    pw = new PrintWriter(new FileWriter(file));
+                    pw.println("ALASKA");
+                    pw.println("0/100");
+                    pw.println("Alaska passenger list");
+                    pw.println();
+                    pw.println("DELTA");
+                    pw.println("0/200");
+                    pw.println("Delta passenger list");
+                    pw.println();
+                    pw.println("SOUTHWEST");
+                    pw.println("0/100");
+                    pw.println("Southwest passenger list");
+                    pw.println();
+                    pw.println("EOF");
+                    pw.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         try {
             socketWriter = new PrintWriter(clientSocket.getOutputStream());
             socketReader = new Scanner(clientSocket.getInputStream());
@@ -299,17 +323,18 @@ class ClientHandler implements Runnable {
     }
 
     public synchronized void getFlightObject(String airline) {
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
-            if (airline.equalsIgnoreCase("Alaska")) {
-                oos.writeObject(ReservationServer.getAlaska());
-            } else if (airline.equalsIgnoreCase("Delta")) {
-                oos.writeObject(ReservationServer.getDelta());
-            } else if (airline.equalsIgnoreCase("Southwest")) {
-                oos.writeObject(ReservationServer.getSouthwest());
-            }
-        } catch (IOException f) {
-            f.printStackTrace();
+        if (airline.equalsIgnoreCase("Alaska")) {
+            Alaska a = ReservationServer.getAlaska();
+            socketWriter.println(a.returnThis());
+            socketWriter.flush();
+        } else if (airline.equalsIgnoreCase("Delta")) {
+            Delta d = ReservationServer.getDelta();
+            socketWriter.println(d.returnThis());
+            socketWriter.flush();
+        } else if (airline.equalsIgnoreCase("Southwest")) {
+            Southwest s = ReservationServer.getSouthwest();
+            socketWriter.println(s.returnThis());
+            socketWriter.flush();
         }
     }
 }
