@@ -1,6 +1,6 @@
 public class Southwest extends Airline {
     public Southwest(String flightNumber) {
-        super("Southwest Airlines", flightNumber);
+        super("Southwest Airlines", flightNumber, 100);
     }
 
     public String getInfo() {

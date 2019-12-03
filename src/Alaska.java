@@ -1,7 +1,7 @@
 public class Alaska extends Airline {
 
     public Alaska(String flightNumber) {
-        super("Alaska Airlines", flightNumber);
+        super("Alaska Airlines", flightNumber, 100);
     }
 
     public String getInfo() {

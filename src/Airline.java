@@ -4,12 +4,14 @@ import java.util.ArrayList;
 public abstract class Airline implements Serializable {
     private final String airlineName; // the airline's name
     private final String flightNumber; // the flight number associated with the only available flight
-    private ArrayList<Passenger> passengers; // the list of passengers who bought a ticket from this airline
+    private int capacity;
+    private Gate gate;
 
-    public Airline(String airlineName, String flightNumber) {
+    public Airline(String airlineName, String flightNumber, int capacity) {
         this.airlineName = airlineName;
         this.flightNumber = flightNumber;
-        passengers = new ArrayList<>(0);
+        this.capacity = capacity;
+        gate = new Gate(this);
     }
 
     public String getAirlineName() {
@@ -20,13 +22,12 @@ public abstract class Airline implements Serializable {
         return flightNumber;
     }
 
-    /**
-     * This method adds the given passenger to the airline's Passenger list.
-     *
-     * @param passenger the passenger to be added to the airline's system tracking the tickets sold
-     */
-    public void addPassengers(Passenger passenger) {
-        passengers.add(passenger);
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public Gate getGate() {
+        return gate;
     }
 
     /**

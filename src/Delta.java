@@ -1,7 +1,7 @@
 public class Delta extends Airline {
 
     public Delta(String flightNumber) {
-        super("Delta Airlines", flightNumber);
+        super("Delta Airlines", flightNumber, 200);
     }
 
     public String getInfo() {
