@@ -1,5 +1,13 @@
 import java.io.Serializable;
 
+/**
+ * Passenger
+ * <p>
+ * This class defines the Passenger Object
+ *
+ * @author Satabdiya Roy, Abbey Brashear, lab sec LC2
+ * @version December 3, 2019
+ */
 public class Passenger implements Serializable {
 
     private String firstName; // first name of the passenger
@@ -26,7 +34,7 @@ public class Passenger implements Serializable {
         return age;
     }
 
-    public void boughtTicket(BoardingPass pass){
+    public void boughtTicket(BoardingPass pass) {
         this.pass = pass;
     }
 

@@ -3,6 +3,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 
+/**
+ * ReservationServer
+ * <p>
+ * This class defines the ReservationServer Object
+ *
+ * @author Satabdiya Roy, Abbey Brashear, lab sec LC2
+ * @version December 3, 2019
+ */
 public final class ReservationServer {
     private ServerSocket serverSocket;
     private Set<String> reservations;
@@ -115,35 +123,40 @@ class ClientHandler implements Runnable {
             String command = socketReader.nextLine();
             String[] a = command.split(" ");
             String type = a[0];
-            if (type.equals("AVAIL")) {
-                socketWriter.println(command);
-                socketWriter.flush();
-                getFlightInfo();
-            } else if (type.equals("PASS")) {
-                socketWriter.println(command);
-                socketWriter.flush();
-                String airline = a[1];
-                if (airline.equalsIgnoreCase("Alaska")) {
-                    socketWriter.println(new Alaska("18000").getCapacity());
+            switch (type) {
+                case "AVAIL":
+                    socketWriter.println(command);
                     socketWriter.flush();
-                    getPassengers("Alaska");
-                } else if (airline.equalsIgnoreCase("Delta")) {
-                    socketWriter.println(new Delta("18000").getCapacity());
+                    getFlightInfo();
+                    break;
+                case "PASS":
+                    socketWriter.println(command);
                     socketWriter.flush();
-                    getPassengers("Delta");
-                } else if (airline.equalsIgnoreCase("Southwest")) {
-                    socketWriter.println(new Southwest("18000").getCapacity());
+                    String airline = a[1];
+                    if (airline.equalsIgnoreCase("Alaska")) {
+                        socketWriter.println(new Alaska("18000").getCapacity());
+                        socketWriter.flush();
+                        getPassengers("Alaska");
+                    } else if (airline.equalsIgnoreCase("Delta")) {
+                        socketWriter.println(new Delta("18000").getCapacity());
+                        socketWriter.flush();
+                        getPassengers("Delta");
+                    } else if (airline.equalsIgnoreCase("Southwest")) {
+                        socketWriter.println(new Southwest("18000").getCapacity());
+                        socketWriter.flush();
+                        getPassengers("Southwest");
+                    }
+                    socketWriter.println("END");
                     socketWriter.flush();
-                    getPassengers("Southwest");
-                }
-                socketWriter.println("END");
-                socketWriter.flush();
-            } else if (type.equals("ADD")) {
-                addPassenger(a[1]);
-            } else if (type.equals("FLIGHT")) {
-                socketWriter.println(command);
-                socketWriter.flush();
-                getFlightObject(a[1]);
+                    break;
+                case "ADD":
+                    addPassenger(a[1]);
+                    break;
+                case "FLIGHT":
+                    socketWriter.println(command);
+                    socketWriter.flush();
+                    getFlightObject(a[1]);
+                    break;
             }
         }
         socketReader.close();
@@ -235,8 +248,8 @@ class ClientHandler implements Runnable {
                         i++;
                         fileText.add(i, passenger.stringToAddToFile());
                         String numbers = fileText.get(i - 2);
-                        Integer passengers = Integer.parseInt(numbers.substring(0, numbers.indexOf("/")));
-                        fileText.set(i-2, passengers + numbers.substring(numbers.indexOf("/")));
+                        int passengers = Integer.parseInt(numbers.substring(0, numbers.indexOf("/")));
+                        fileText.set(i - 2, ++passengers + numbers.substring(numbers.indexOf("/")));
                     }
                 }
                 PrintWriter writer = new PrintWriter(file);
@@ -277,16 +290,14 @@ class ClientHandler implements Runnable {
         }
     }
 
-    public synchronized void getFlightObject(String airline){
+    public synchronized void getFlightObject(String airline) {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
-            if(airline.equalsIgnoreCase("Alaska")){
+            if (airline.equalsIgnoreCase("Alaska")) {
                 oos.writeObject(ReservationServer.getAlaska());
-            }
-            else if(airline.equalsIgnoreCase("Delta")){
+            } else if (airline.equalsIgnoreCase("Delta")) {
                 oos.writeObject(ReservationServer.getDelta());
-            }
-            else if(airline.equalsIgnoreCase("Southwest")){
+            } else if (airline.equalsIgnoreCase("Southwest")) {
                 oos.writeObject(ReservationServer.getSouthwest());
             }
         } catch (IOException f) {

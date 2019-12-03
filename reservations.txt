@@ -1,22 +1,17 @@
 ALASKA
-3/100
+4/100
 Alaska passenger list
-I. PRABESH, 18
-S. ROY, 18
+H. BABOK, 23
+H. BO, 35
 M. ROY, 35
-A. NARAIN, 20
-K. ABHYANKAR, 19
-N. CLAYMAN, 19
+S. ROY, 18
 
 DELTA
-2/200
+0/200
 Delta passenger list
-C. WESTMEYER, 19
-K. ABHYANKAR, 19
 
 SOUTHWEST
-1/100
+0/100
 Southwest passenger list
-C. WESTMEYER, 20
 
 EOF

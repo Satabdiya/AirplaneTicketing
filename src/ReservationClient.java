@@ -11,6 +11,14 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * ReservationClient
+ * <p>
+ * This class defines the ReservationClient Object
+ *
+ * @author Satabdiya Roy, Abbey Brashear, lab sec LC2
+ * @version December 3, 2019
+ */
 public final class ReservationClient {
 
     static JFrame frame;
@@ -204,8 +212,7 @@ public final class ReservationClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < flightsAvailable.size(); i++) {
-            String info = flightsAvailable.get(i);
+        for (String info : flightsAvailable) {
             if (info.contains(" ") && info.substring(0, info.indexOf(" ")).equalsIgnoreCase("Alaska")) {
                 options.addItem("Alaska");
             } else if (info.contains(" ") && info.substring(0,
@@ -531,9 +538,9 @@ public final class ReservationClient {
             Passenger passenger;
             if (checkValidity(first, last, ageValue)) {
                 int choice = JOptionPane.showConfirmDialog(null, "Are all the details you" +
-                                " entered correct?\nThe passenger's name is " + first + " " + last + " and their age is "
-                                + ageValue + ".\nIf all the information shown is correct, select the Yes\nbutton below, " +
-                                "otherwise, select the No button.", "Confirm Passenger Information",
+                                " entered correct?\nThe passenger's name is " + first + " " + last + " and their age" +
+                                " is " + ageValue + ".\nIf all the information shown is correct, select the Yes\n" +
+                                "button below, otherwise, select the No button.", "Confirm Passenger Information",
                         JOptionPane.YES_NO_OPTION);
                 if (choice == JOptionPane.YES_OPTION) {
                     passenger = new Passenger(first, last, Integer.parseInt(ageValue));
@@ -780,44 +787,45 @@ public final class ReservationClient {
 
 class ResponseListener implements Runnable {
     private Socket socket;
-    private BufferedReader socketReader = null;
 
 
     public ResponseListener(Socket socket) {
         this.socket = socket;
-        try {
-            socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void run() {
         try {
+            BufferedReader socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String command = socketReader.readLine();
             String[] a = command.split(" ");
             String type = a[0];
-            if (type.equals("AVAIL")) {
-                ArrayList<String> flights = new ArrayList<>(0);
-                String line = socketReader.readLine();
-                while (!line.equals("END")) {
-                    flights.add(line);
-                    line = socketReader.readLine();
+            switch (type) {
+                case "AVAIL": {
+                    ArrayList<String> flights = new ArrayList<>(0);
+                    String line = socketReader.readLine();
+                    while (!line.equals("END")) {
+                        flights.add(line);
+                        line = socketReader.readLine();
+                    }
+                    ReservationClient.setFlightsAvailable(flights);
+                    break;
                 }
-                ReservationClient.setFlightsAvailable(flights);
-            } else if (type.equals("PASS")) {
-                ReservationClient.setCapacity(Integer.parseInt(socketReader.readLine()));
-                ArrayList<String> passengers = new ArrayList<>(0);
-                String line = socketReader.readLine();
-                while (!line.equals("END")) {
-                    passengers.add(line);
-                    line = socketReader.readLine();
+                case "PASS": {
+                    ReservationClient.setCapacity(Integer.parseInt(socketReader.readLine()));
+                    ArrayList<String> passengers = new ArrayList<>(0);
+                    String line = socketReader.readLine();
+                    while (!line.equals("END")) {
+                        passengers.add(line);
+                        line = socketReader.readLine();
+                    }
+                    ReservationClient.setPassengerList(passengers);
+                    break;
                 }
-                ReservationClient.setPassengerList(passengers);
-            } else if (type.equals("FLIGHT")) {
-                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-                Airline airline = (Airline) ois.readObject();
-                ReservationClient.setSelectedAirline(airline);
+                case "FLIGHT":
+                    ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+                    Airline airline = (Airline) ois.readObject();
+                    ReservationClient.setSelectedAirline(airline);
+                    break;
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

@@ -1,6 +1,14 @@
 import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * Gate
+ * <p>
+ * This class defines the Gate Object
+ *
+ * @author Satabdiya Roy, Abbey Brashear, lab sec LC2
+ * @version December 3, 2019
+ */
 public class Gate implements Serializable {
     private String terminal; // the terminal representing the gate
     private int gateNumber;

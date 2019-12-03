@@ -1,3 +1,11 @@
+/**
+ * Alaska
+ * <p>
+ * This class defines the Alaska Object
+ *
+ * @author Satabdiya Roy, Abbey Brashear, lab sec LC2
+ * @version December 3, 2019
+ */
 public class Alaska extends Airline {
 
     public Alaska(String flightNumber) {

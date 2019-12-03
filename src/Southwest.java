@@ -1,3 +1,11 @@
+/**
+ * Southwest
+ * <p>
+ * This class defines the Southwest Object
+ *
+ * @author Satabdiya Roy, Abbey Brashear, lab sec LC2
+ * @version December 3, 2019
+ */
 public class Southwest extends Airline {
     public Southwest(String flightNumber) {
         super("Southwest Airlines", flightNumber, 100);

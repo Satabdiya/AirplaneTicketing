@@ -1,3 +1,11 @@
+/**
+ * Delta
+ * <p>
+ * This class defines the Delta Object
+ *
+ * @author Satabdiya Roy, Abbey Brashear, lab sec LC2
+ * @version December 3, 2019
+ */
 public class Delta extends Airline {
 
     public Delta(String flightNumber) {

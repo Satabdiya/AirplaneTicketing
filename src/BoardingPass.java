@@ -1,5 +1,13 @@
 import java.io.Serializable;
 
+/**
+ * BoardingPass
+ * <p>
+ * This class defines the BoardingPass Object
+ *
+ * @author Satabdiya Roy, Abbey Brashear, lab sec LC2
+ * @version December 3, 2019
+ */
 public class BoardingPass implements Serializable {
     private Passenger passenger; // the passenger that this boarding pass belongs to
     private Gate gate; // the gate at which this boarding pass will be valid

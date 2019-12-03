@@ -1,6 +1,14 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Airline
+ * <p>
+ * This class defines the Airline Abstract Object
+ *
+ * @author Satabdiya Roy, Abbey Brashear, lab sec LC2
+ * @version December 3, 2019
+ */
 public abstract class Airline implements Serializable {
     private final String airlineName; // the airline's name
     private final String flightNumber; // the flight number associated with the only available flight
