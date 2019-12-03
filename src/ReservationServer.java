@@ -101,6 +101,14 @@ public final class ReservationServer {
     }
 }
 
+/**
+ * ClientHandler
+ * <p>
+ * This class defines the ClientHandler Object
+ *
+ * @author Satabdiya Roy, Abbey Brashear, lab sec LC2
+ * @version December 3, 2019
+ */
 class ClientHandler implements Runnable {
     private Socket clientSocket;
     private File file;

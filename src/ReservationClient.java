@@ -83,20 +83,19 @@ public final class ReservationClient {
         }
 
         SwingUtilities.invokeLater(() -> {
-                    frame = new JFrame("Purdue University Flight Reservation System");
-                    frame.setSize(700, 500);
-                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    frame.setResizable(false);
-                    panel = new JPanel();
-                    popUp = new JFrame();
-                    popUp.setResizable(false);
-                    popUp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    popUp.setSize(200, 200);
-                    encapsulate = new JPanel();
-                    welcome();
-                    frame.setVisible(true);
-                }
-        );
+            frame = new JFrame("Purdue University Flight Reservation System");
+            frame.setSize(700, 500);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setResizable(false);
+            panel = new JPanel();
+            popUp = new JFrame();
+            popUp.setResizable(false);
+            popUp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            popUp.setSize(200, 200);
+            encapsulate = new JPanel();
+            welcome();
+            frame.setVisible(true);
+        });
     }
 
     private static boolean isParsable(String string) {
@@ -785,9 +784,16 @@ public final class ReservationClient {
     }
 }
 
+/**
+ * ResponseListener
+ * <p>
+ * This class defines the ResponseListener Object
+ *
+ * @author Satabdiya Roy, Abbey Brashear, lab sec LC2
+ * @version December 3, 2019
+ */
 class ResponseListener implements Runnable {
     private Socket socket;
-
 
     public ResponseListener(Socket socket) {
         this.socket = socket;

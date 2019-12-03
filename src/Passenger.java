@@ -34,8 +34,8 @@ public class Passenger implements Serializable {
         return age;
     }
 
-    public void boughtTicket(BoardingPass pass) {
-        this.pass = pass;
+    public void boughtTicket(BoardingPass boardingPass) {
+        this.pass = boardingPass;
     }
 
     /**
