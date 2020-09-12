@@ -1,7 +1,5 @@
 import java.io.Serializable;
-import java.util.ArrayList;
 
-// Playing around
 /**
  * Airline
  * <p>
